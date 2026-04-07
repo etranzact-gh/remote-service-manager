@@ -1,0 +1,143 @@
+<section>
+    <div class="flex md:hidden lg:hidden basis-[7%] w-[100%] bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] px-2 justify-between">
+         <div class=" flex items-center">
+            <img src="logo.svg" class="h-[40px]">
+            <span class="text-[22px] font-bold text-white mb-[8px] oswald-uniquifier">RSM</span>
+        </div>
+           
+        <nz-drawer [nzClosable]="false" [nzVisible]="visible"
+          [nzPlacement]="placement" nzTitle="" (nzOnClose)="close()" [nzBodyStyle]="{backgroundcolour: '#001223', padding:'0px'}">
+          <ng-container *nzDrawerContent>
+            <div class="!bg-[#001223]">
+            <ul nz-menu class="!bg-[#001223] !text-white text-[15px] font-[500] cursor-pointer px-[5px] py-[10px] flex flex-col gap-4">
+              <div routerLink="/app-layout/layout/home" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="Home.svg" alt="" class="h-[20px]">
+                <span>Home</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/services" routerLinkActive="active" class="!text-white flex items-center gap-2 ">
+                <img src="service.svg" alt="" class="h-[20px]">
+                <span>Services</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/products" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="product.svg" alt="" class="h-[20px]">
+                <span>Products</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/channels" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="chan.svg" alt="" class="h-[20px]">
+                 <span>Channels</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/institutions" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="inst.svg" alt="" class="h-[20px]">
+                <span>Institutions</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/categories" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="category.svg" alt="" class="h-[20px]">
+                <span>Categories</span>
+              </div>
+
+              <div routerLink="/app-layout/layout/accounts" routerLinkActive="active" class="!text-white flex items-center gap-2">
+                <img src="users.svg" alt="" class="h-[20px]">
+                <span>Accounts</span>
+              </div>
+          </ul>  
+          <div class="flex flex-col gap-[1.5px] quicksand-uniquifier mt-[10px] border-t p-2 m-2 border-white w-full">
+             <div class="flex gap-[2px] items-center ">
+                <img src="UserCircle.svg" alt="" class="w-[20px]">
+                <span class="text-white text-[15px]">{{userFullName}}</span>
+                <!-- <span class="text-white text-[12px]">Manager</span> -->
+            </div>
+            <div class="flex items-center gap-3 p-1 w-[100px]" (click)="backTo()">
+              <img src="plainlogout.svg" alt="" class="w-[14px]">
+              <span class="text-white text-[14px]">Logout</span>
+            </div>
+          </div>   
+            </div>
+          </ng-container>
+        </nz-drawer>
+    <!-- [(ngModel)]="placement" -->
+        <div class="flex gap-4 items-center">
+           
+            
+       </div>
+
+         <nz-radio-group >
+          <label nzValue="top"></label>
+        </nz-radio-group>
+        <div class="flex md:hidden lg:hidden">
+          <button nz-button nzType="primary" (click)="open()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24">
+              <path fill="none" stroke="#ffffff" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2" d="M4 12h16M4 18h16M4 6h16"/>
+          </svg>
+         </button>
+        </div>
+    </div>
+    <div
+        class="basis-[7%] w-[100%] bg-gradient-to-r from-[#031641] hidden md:flex via-[#163993] to-[#031641] lg:flex items-center justify-between px-2">
+        <div class=" flex items-center">
+            <img src="logo.svg" class="h-[40px]">
+            <span class="text-[22px] font-bold text-white mb-[8px] oswald-uniquifier">RSM</span>
+        </div>
+        <div class="flex gap-[41px] text-[#C7C7D8] text-[14px] cursor-pointer quicksand-uniquifier">
+            <div  routerLink="/app-layout/layout/home" routerLinkActive="active">Home</div>
+            <div  routerLink="/app-layout/layout/services" routerLinkActive="active">Services</div>
+            <div  routerLink="/app-layout/layout/products" routerLinkActive="active">Products</div>
+            <div  routerLink="/app-layout/layout/channels" routerLinkActive="active">Channels</div>
+            <div  routerLink="/app-layout/layout/institutions" routerLinkActive="active">Institutions</div>
+            <div  routerLink="/app-layout/layout/categories" routerLinkActive="active">Categories</div>
+            <div  routerLink="/app-layout/layout/accounts" routerLinkActive="active">Accounts</div>
+        </div>
+        <div class="flex gap-4 items-center">
+            <div>
+                <img src="linedivide.svg" alt="">
+            </div>
+            
+              <div _ngcontent-ng-c4279680881="" class="relative"><svg _ngcontent-ng-c4279680881="" fill="#000000" width="35px" height="35px"
+                viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g _ngcontent-ng-c4279680881="" opacity="0.2">
+                <path _ngcontent-ng-c4279680881="" d="M128,32A96.00088,96.00088,0,0,0,63.79883,199.375v-.001A71.99731,71.99731,0,0,1,128,160a40,
+                40,0,1,1,40-40,40.0001,40.0001,0,0,1-40,40,71.99731,71.99731,0,0,1,64.20117,39.374A96.0002,96.0002,0,0,0,128,32Z"></path></g>
+                <path _ngcontent-ng-c4279680881="" d="M232,128A104,104,0,1,0,57.81976,204.68115a7.96213,7.96213,0,0,0,1.32587,1.18946,103.78435,
+                103.78435,0,0,0,137.71222-.00342,7.95366,7.95366,0,0,0,1.31708-1.18115A103.74692,103.74692,0,0,0,232,128ZM40,128a88,88,0,1,1,153.75812,
+                58.41016,79.55962,79.55962,0,0,0-36.05591-28.74561,48.0003,48.0003,0,1,0-59.40448-.00049,79.56043,79.56043,0,0,0-36.056,28.7461A87.63816,
+                87.63816,0,0,1,40,128Zm56-8a32,32,0,1,1,32,32A32.036,32.036,0,0,1,96,120ZM74.08325,197.499a64.02243,64.02243,0,0,1,107.83331,0,87.814,87.814,
+                0,0,1-107.83331,0Z"></path></svg><div _ngcontent-ng-c4279680881="" class="active-dot-outter absolute top-5 left-6"><div _ngcontent-ng-c4279680881=""
+                class="active-dot-inner"></div></div></div>
+           
+            <div class="flex flex-col gap-[1.5px] quicksand-uniquifier">
+                <span class="text-[#BBBBBB] text-[11px]">{{userFullName}}</span>
+                <!-- <span class="text-[#BBBBBB] text-[11px]">Manager</span> -->
+            </div>
+            <div>
+              <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu">
+                <img src="inverse-tri.svg" alt="">
+             </a>        
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-[#F8F8F8] w-full h-[94vh] m-auto flex flex-col p-[35px]">
+        <router-outlet></router-outlet>
+    </div>
+</section>
+
+
+    <nz-dropdown-menu #mobileMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>Home</li>
+    <li nz-menu-item>Services</li>
+    <li nz-menu-item>Settings</li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #userMenu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item >
+     
+    </li>
+  </ul>
+</nz-dropdown-menu>

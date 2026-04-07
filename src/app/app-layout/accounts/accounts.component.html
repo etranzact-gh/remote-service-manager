@@ -1,0 +1,300 @@
+<section class="px-[1px] md:px-[20px] lg:px-[20px] quicksand-uniquifier">
+    <div class=" flex gap-[0.5px] items-center">
+        <span class="text-[#BABABA] text-[12px]">Home</span>
+        <img src="ChevronRight.svg" alt="" class="h-[25px]">
+        <span class="text-[#031641] text-[12px] cursor-pointer">Accounts</span>
+    </div>
+    <div class="mt-[10px]">
+        <span class="text-[#031641] text-[13px] font-bold cursor-pointer">ACCOUNTS</span>
+    </div>
+    <!-- <div>
+        <div *ngIf="quantity === 0; else counter">
+        <button (click)="quantity = 1" class="bg-blue-500 p-4">Add</button>
+ </div>
+    </div> -->
+
+    <div class="flex justify-end">
+        <button (click)="openModal()"
+            class="text-white lg:w-[150px] md:w-[150px] w-[110px] lg:h-[40px] md:h-[40px] h-[35px] rounded-[9px] flex gap-2 items-center justify-center bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] ">
+            <img src="rr-plus.svg" alt="" class="h-[14px]">
+            <span class="hidden md:flex lg:flex text-[14px]">Add Account</span>
+             <span class="flex md:hidden lg:hidden text-[13px]">Add </span>
+        </button>
+    </div>
+    <div style="border:1px solid #E0E2E7" class="mt-4 h-[71vh] rounded-[7px] flex flex-col justify-between">
+        <div>
+            <div style="border-bottom: 2px solid #E0E2E7;" class="h-[50px] px-[20px] py-2 flex justify-end">
+                <div style="border:1px solid #E0E2E7"
+                    class="lg:w-[250px] md:w-[250px] w-[330px] bg-[#F9FAFB] flex items-center px-[2px] py-[17px] rounded-[8px]">
+                    <input type="text" placeholder="Search by name" [(ngModel)]="searchValue"
+                        (ngModelChange)="filterAccounts()" class="focus focus:outline-none bg-[#F9FAFB]">
+                </div>
+            </div>
+            <nz-spin nzType="info" *ngIf="loadingState && AccountsList?.length === 0" nzTip="Loading Data..."
+                class="h-[400px]">
+            </nz-spin>
+            <div *ngIf="!loadingState && AccountsList?.length === 0"
+                class="flex flex-col justify-center items-center h-[300px] ml-[2%]">
+                <div class="flex flex-col">
+                    <img src="https://webpay.etranzactgh.com/remoteservicemanagerportal/assets/images/noData.png" alt=""
+                        class="h-[100px] w-[100px] ml-[25px]">
+                    <span class="text-[#6B7280] text-[13px]">Sorry, there's no data yet</span>
+                </div>
+            </div>
+            <div>
+                <nz-table *ngIf="!loadingState && AccountsList.length > 0" [nzScroll]="{ x: '1300px', y:'365px'}"
+                    [nzBordered]="false" [nzShowPagination]="false" [nzData]="AccountsList">
+                    <thead>
+                        <tr class="text-[12px] md:text-[13px] lg:text-[14px] font-normal ">
+                            <th nzWidth="180px">Name</th>
+                            <th nzWidth="170px">Role</th>
+                            <th nzWidth="120px">Phonenumber</th>
+                            <th nzWidth="120px">Attempts</th>
+                            <th nzWidth="170px">Status</th>
+                            <th nzWidth="170px">Date Created</th>
+                            <th nzWidth="170px">Date Updated</th>
+                            <th nzWidth="80px">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of paginatedData"
+                            class="text-[10px] md:text-[14px] lg:text-[15px] text-[#000000DE]">
+                            <td>{{item.name}}</td>
+                            <td>{{item.role}} </td>
+                            <td>{{item.phone_number}}</td>
+                            <td>{{item.attempts}}</td>
+                            <td>{{item.status}}</td>
+                            <td>{{item.created}}</td>
+                            <td>{{item.updated}}</td>
+                            <td>
+                                <div class="flex gap-x-4">
+                                    <button class="flex items-center justify-center">
+                                        <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu"
+                                            (click)="openMenu(item)">
+                                            <img src="List.svg" alt="" class="h-[14px]">
+                                        </a>
+                                    </button>
+                                    <button (click)="deleteModal(item)"
+                                        class="flex items-center justify-center bg-[#FFDFDF] h-[25px] w-[25px] rounded-md">
+                                        <img src="Delete.svg" alt="" class="h-[14px]">
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </div>
+        </div>
+        <div class="w-full bg-white p-4 flex gap-2 justify-end items-center">
+            <span class="hidden md:flex lg:flex">Items per page:</span>
+            <select name="" id="" class="border border-gray-300 hidden md:flex lg:flex px-4 py-2 rounded-md">
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+            <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="filteredAccount.length" [nzPageSize]="pageSize"
+                (nzPageIndexChange)="onPageIndexChange($event)" nzSimple />
+        </div>
+    </div>
+</section>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Add Account" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzFooter]="null" [nzBodyStyle]="{height:'64vh'}">
+    <ng-container *nzModalContent>
+        <form nz-form #createAccount="ngForm" (ngSubmit)="submit(createAccount)"
+            class="quicksand-uniquifier modal-width flex flex-col gap-[10px] md:gap-[30px] lg:gap-[30px]">
+            <nz-form-item>
+                <label for="label">Name <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="name" #name="ngModel" [(ngModel)]="createAccountForm.name"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">Phonenumber <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="phone_number" #phone_number="ngModel"
+                    [(ngModel)]="createAccountForm.phone_number"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="type">Role <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <select type="text" placeholder="" name="role" #role="ngModel" [(ngModel)]="createAccountForm.role"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+                    <option></option>
+                    <option>Select a Role</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                    <option value="Manager">Manger</option>
+                </select>
+            </nz-form-item>
+
+            <div class="flex justify-end">
+                <button type="submit" [disabled]="createAccount.invalid || isLoading" [ngClass]="{
+                        'bg-gray-300 cursor-not-allowed': createAccount.invalid || isLoading,
+                        'bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]': !(createAccount.invalid || isLoading)
+                    }" class="px-[40px] py-[8px] rounded-[8px] text-white flex justify-center items-center">
+                    <span *ngIf="isLoading" class="text-gray-700 text-sm">
+                        <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                        Submitting...
+                    </span>
+                    <span *ngIf="!isLoading" class="text-white text-[13px] font-[600]">Submit</span>
+                </button>
+            </div>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isPin" nzTitle="Set Pin" (nzOnCancel)="handleClose()" (nzOnOk)="handleOkay()" [nzFooter]="null"
+    [nzBodyStyle]="{height:'50vh'}">
+    <ng-container *nzModalContent>
+        <form nz-form #setPinForm="ngForm" ngSubmit="submit(setPinForm)"
+            class="quicksand-uniquifier modal-width flex flex-col gap-[10px] md:gap-[30px] lg:gap-[30px]">
+            <nz-form-item>
+                <label for="label">New Pin <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="new_pin" required #new_pin="ngModel"
+                    [(ngModel)]="pinData.new_pin"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">Confirm Pin <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" required name="confirm_pin" #confirm_pin="ngModel"
+                    [(ngModel)]="pinData.confirm_pin"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <button type="button" (click)="setNewPin(setPinForm)" [disabled]="setPinForm.invalid || isSetting"
+                [ngClass]="{
+                        'bg-gray-300 cursor-not-allowed': setPinForm.invalid || isSetting,
+                        'bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]': !(setPinForm.invalid || isSetting)
+                    }" class="px-[40px] py-[8px] rounded-[8px] text-white flex justify-center items-center">
+                <span *ngIf="isSetting" class="text-gray-700 text-sm">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Submitting...
+                </span>
+                <span *ngIf="!isSetting" class="text-white text-[13px] font-[600]">Submit</span>
+            </button>
+
+            <!-- <div class="flex justify-end">
+            <button type="button" (click)="setNewPin(setPinForm)" class="border border-gray-600 px-[40px] py-[8px] rounded-[8px]
+             text-white flex justify-center items-center bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]">
+            Submit
+            </button>
+        </div> -->
+        </form>
+    </ng-container>
+</nz-modal>
+
+<!--  -->
+
+<nz-modal [(nzVisible)]="isChange" nzTitle="Change Pin" (nzOnCancel)="handleClosed()" (nzOnOk)="handleOke()"
+    [nzFooter]="null" [nzWidth]="'25vw'" [nzBodyStyle]="{height:'50vh'}">
+    <ng-container *nzModalContent>
+        <form nz-form #changePinForm="ngForm" ngSubmit="submit(changePinForm)"
+            class="quicksand-uniquifier modal-width flex flex-col gap-[10px] md:gap-[30px] lg:gap-[30px]">
+            <nz-form-item>
+                <label for="label">Current Pin <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="pin" #pin="ngModel" [(ngModel)]="changeData.pin"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">New Pin <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="new_pin" #new_pin="ngModel" [(ngModel)]="changeData.new_pin"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">Confirm Pin <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="confirm_pin" #confirm_pin="ngModel"
+                    [(ngModel)]="changeData.confirm_pin"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <button type="button" (click)="changeCurrentPin(changePinForm)"
+                [disabled]="changePinForm.invalid || isChanging" [ngClass]="{
+                        'bg-gray-300 cursor-not-allowed': changePinForm.invalid || isChanging,
+                        'bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]': !(changePinForm.invalid || isChanging)
+                    }" class="px-[40px] py-[8px] rounded-[8px] text-white flex justify-center items-center">
+                <span *ngIf="isChanging" class="text-gray-700 text-sm">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Submitting...
+                </span>
+                <span *ngIf="!isChanging" class="text-white text-[13px] font-[600]">Submit</span>
+            </button>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isStatus" nzTitle="Manage Status" (nzOnCancel)="handleDone()" (nzOnOk)="handleOkay()"
+    [nzFooter]="null" [nzBodyStyle]="{height:'30vh'}">
+    <ng-container *nzModalContent>
+        <form nz-form #manageForm="ngForm" ngSubmit="submit(manageForm)"
+            class="quicksand-uniquifier modal-width flex flex-col gap-[10px] md:gap-[30px] lg:gap-[30px]">
+            <nz-form-item>
+                <label for="type">Take an action<span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <select type="text" placeholder="" required name="action" #action="ngModel" [(ngModel)]="manageData.action"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+                    <option></option>
+                    <option value="block">Block</option>
+                    <option value="unblock">Unblock</option>
+                    <option value="reset_pin">Reset Pin</option>
+                </select>
+            </nz-form-item>
+
+            <button type="button" (click)="setAction(manageForm)" [disabled]="manageForm.invalid || statusChange"
+                [ngClass]="{
+                        'bg-gray-300 cursor-not-allowed': manageForm.invalid || statusChange,
+                        'bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]': !(manageForm.invalid || statusChange)
+                    }" class="px-[40px] py-[8px] rounded-[8px] text-white flex justify-center items-center">
+                <span *ngIf="statusChange" class="text-gray-700 text-sm">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Submitting...
+                </span>
+                <span *ngIf="!statusChange" class="text-white text-[13px] font-[600]">Submit</span>
+            </button>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isDelete" nzTitle="Delete Account" (nzOnCancel)="handleDelete()" (nzOnOk)="handleOki()"
+    [nzStyle]="{top: '170px' }" [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <div class="quicksand-uniquifier">
+            <span class="text-[16px] text-[#1D1F2C]">Confirm Deletion</span>
+        </div>
+        <div class="flex items-center quicksand-uniquifier mt-[10px]">
+            <span class="text-[12px] text-[#434343]"> Do you really want to delete this account? This action
+                <br> is irreversible
+            </span>
+        </div>
+        <div class="flex gap-[20px] justify-end">
+            <button type="button" (click)="closeDelete()" class="px-[24px] py-[4px] rounded-[8px]
+                  text-white flex justify-center items-center bg-white border border-gray-300">
+                <span class="text-[#626262] text-[12px] font-[600]">Discard</span>
+            </button>
+            <button type="button" (click)="confirmDelete()" class="px-[24px] py-[4px] rounded-[8px]
+                  text-white flex justify-center items-center bg-[#A82800] hover:bg-red-500">
+                <span *ngIf="Load" class="flex text-[#FFFFFF] text-[9px]">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Deleting in progress...
+                </span>
+                <span *ngIf="!Load" class="text-white text-[13px] font-[600]">Yes, Delete</span>
+            </button>
+        </div>
+    </ng-container>
+</nz-modal>
+
+<!-- <ng-template #counter >
+<button class="bg-blue-500 p-2 rounded-sm" (click)="quantity = quantity - 1">-</button>
+  <span class="bg-white border border-blue-400 p-2 rounded-sm  ml-[10px]">{{ quantity }}</span>
+  <button class="bg-blue-500 p-2 rounded-sm ml-[10px]" (click)="quantity = quantity + 1">+</button>
+</ng-template> -->
+
+
+<nz-dropdown-menu #menu="nzDropdownMenu">
+    <ul nz-menu class="quicksand-uniquifier text-[12px] text-[#535252]">
+        <li nz-menu-item (click)="setPin(selectedAccount)">Set Pin</li>
+        <li nz-menu-item (click)="changePin(selectedAccount)">Change Pin</li>
+        <li nz-menu-item (click)="manageStatus(selectedAccount)">Manage Status</li>
+    </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,30 @@
+section{
+    font-family: "Quicksand", sans-serif;
+}
+
+.quicksand-uniquifier {
+  font-family: "Quicksand", sans-serif;
+  // font-optical-sizing: auto;
+  font-style: normal;
+}
+
+button:disabled {
+  background: #c2c0c0 !important; 
+  cursor: not-allowed !important;
+  opacity: 0.8;
+}
+
+button:disabled.bg-gradient-to-b {
+  background-image: none !important;
+}
+
+::ng-deep .ant-table-thead > tr> th {
+    color: #6E6893;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+::ng-deep .ant-table-tbody > tr> td {
+    font-size: 13px;
+    font-weight: 500;
+}

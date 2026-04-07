@@ -1,0 +1,39 @@
+
+.oswald-uniquifier {
+  font-family: "Oswald", sans-serif;
+//   font-style: normal;
+}
+
+.quicksand-uniquifier {
+  font-family: "Quicksand", sans-serif;
+  // font-optical-sizing: auto;
+  // font-weight: <weight>;
+  font-style: normal;
+}
+
+.public-sans-uniquifier {
+  font-family: "Public Sans", sans-serif;
+//   font-optical-sizing: auto;
+//   font-weight: <weight>;
+  font-style: normal;
+}
+
+.active{
+    border:1px solid white;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    width: auto;
+    color: white;
+    padding: 10px 2px;
+}
+
+
+button:disabled {
+  background: #c2c0c0 !important; 
+  cursor: not-allowed !important;
+  opacity: 0.8;
+}
+
+button:disabled.bg-gradient-to-b {
+  background-image: none !important;
+}

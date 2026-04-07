@@ -1,0 +1,59 @@
+<section class="flex overflow-hidden">
+    <div class="flex relative flex-col hidden md:flex lg:flex bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] w-[50vw] h-[100vh]">
+        <div class="h-[50%] w-[110%]  absolute bottom-[69%] p-0 left-[3.7%]">
+            <img src="diagonalblue.svg" alt="" class="ml-[7%]">
+        </div>
+        <nz-carousel nzAutoPlay>
+          @for (index of array; track index) {
+        <div nz-carousel-content>
+           <div class="items-center justify-center pb-[50%] w-[75%] h-[75%] absolute top-[7%] left-[5%]">
+            <img src="young-man.svg" alt="" class="ml-[7%]">
+        </div>
+        <div class="flex flex-col gap-1 items-center text-center justify-center absolute top-[74%] left-[30%]">
+            <span class="font-bold text-[22px] text-white font-[700]">Experience the power of positivity</span>
+            <p class="text-white text-[12px] font-[400]">Experience the elegance of simplicity. Every detail is <br> designed with you in mind.</p>
+        </div>
+          <!-- <h6>{{ index }}</h6> -->
+        </div>
+      }
+    </nz-carousel>
+        <div class="absolute bottom-[12%] w-[65%] h-[15%] left-[21%]">
+            <img src="blurrbottom.svg" alt="">
+        </div>
+    </div>
+    <div class="bg-white w-[100vw] md:w-[50vw] lg:w-[50vw] h-[100vh]">
+    <div class="flex flex-col max-w-[800px] md:max-w-[430px] lg:max-w-[430px] items-center justify-center p-8 m-auto rounded-lg mt-[150px]">
+      <div class="text-center">
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <img src="logo.svg" class="w-[20%] h-[20%]" alt="">
+         <img src="RSM.svg" alt="" class="mr-[6%]  w-[20%] h-[20%]"> 
+        </div>
+        <h1 class="text-[16px] md:text-[22px] lg:text-[22px] font-[700]">Log In To Your Account</h1>
+        <p class="text-[#7C7C7C] font-md md:text-[14px] lg:text-[14px] text-[12px]">Welcome back! Please enter your details</p>
+      </div>
+  
+      <!-- form -->
+      <form #loginform="ngForm"  (ngSubmit)="submit(loginform)" class="w-full space-y-2" nzform >
+        <nz-form-item class="flex flex-col">
+          <label for="email" class="mb-1 text-[12px] md:text-[14px] lg:text-[14px]">Email</label>
+          <input nz-input type="email" name="username" #username="ngModel" [(ngModel)]="signinForm.username" required placeholder="Enter your email" 
+          class="border-1 border-[#D7D7D7] text-[#7C7C7C] p-2 !rounded-[8px] h-[35px] md:h-[45px]">
+        </nz-form-item>
+  
+        <nz-form-item class="flex flex-col relative">
+          <label for="password" class="mb-1 text-[12px] md:text-[14px] lg:text-[14px]">Password</label>
+          <input type="password" required  nz-input name="password" #password="ngModel" [(ngModel)]="signinForm.password"
+            placeholder="Enter password" class="border border-[#D7D7D7] text-[#7C7C7C] p-2 pr-10
+             !rounded-[8px] h-[35px] md:h-[45px] w-full"/>
+        </nz-form-item>
+      
+        <div class="mt-4">
+          <button type="submit" *ngIf="!loadingState" [disabled]="loginform.invalid" class="mt-[8%] w-full bg-[#163993] !text-white p-2 text-[12px] md:text-[16px] lg:text-[16px]
+           rounded-[8px] font-[700] m-auto h-[35px] md:h-[45px] lg:h-[45px] flex items-center justify-center">Login
+          </button>
+          <div><nz-spin *ngIf="loadingState" nzSimple class="spinner m-auto ml-[160px] md:ml-[140px] lg:ml-[160px] md:mt-[20px] "></nz-spin></div> 
+        </div>
+      </form> 
+    </div>  
+    </div>
+</section>

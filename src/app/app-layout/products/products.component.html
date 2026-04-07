@@ -1,0 +1,230 @@
+<section class="px-[1px] md:px-[20px] lg:px-[20px]px-[20px]">
+    <div class=" flex gap-[0.5px] items-center">
+        <span class="text-[#BABABA] text-[12px]">Home</span>
+        <img src="ChevronRight.svg" alt="" class="h-[25px]">
+        <span class="text-[#031641] text-[12px] cursor-pointer">Products</span>
+    </div>
+    <div class="mt-[10px]">
+        <span class="text-[#031641] text-[13px] font-bold cursor-pointer">PRODUCTS</span>
+    </div>
+    <div class="flex justify-end">
+        <button (click)="openModal()"
+            class="text-white lg:w-[150px] md:w-[150px] w-[110px] lg:h-[40px] md:h-[40px] h-[35px] rounded-[9px] flex gap-2 items-center justify-center bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] ">
+            <img src="rr-plus.svg" alt="" class="h-[14px]">
+            <span class="text-[14px] hidden md:flex lg:flex">Add Products</span>
+            <span class="text-[14px] flex md:hidden lg:hidden">Add</span>
+        </button>
+    </div>
+    <div style="border:1px solid #E0E2E7" class=" mt-4 max-h-[71vh] rounded-[7px] flex flex-col">
+        <div style="border-bottom: 2px solid #E0E2E7;" class="h-[50px] px-[20px] py-2 flex justify-end">
+            <div style="border:1px solid #E0E2E7"
+                class="lg:w-[250px] md:w-[250px] w-[330px] bg-[#F9FAFB] flex items-center px-[2px] py-[17px] rounded-[8px]">
+                <input type="text" placeholder="Search by name" [(ngModel)]="searchValue"
+                 (ngModelChange)="filterProducts()"
+                 class="focus focus:outline-none bg-[#F9FAFB]">
+            </div>
+        </div>
+        <nz-spin nzType="info" *ngIf="loadingState && ProductsList?.length === 0" nzTip="Loading Data..." class="h-[500px]">
+        </nz-spin>
+            <div *ngIf="!loadingState && ProductsList?.length === 0"
+                class="flex flex-col justify-center items-center h-[300px] ml-[2%]">
+                <div class="flex flex-col">
+                    <img src="https://webpay.etranzactgh.com/remoteservicemanagerportal/assets/images/noData.png" alt=""
+                        class="h-[100px] w-[100px] ml-[25px]">
+                    <span class="text-[#6B7280] text-[13px]">Sorry, there's no data yet</span>
+                </div>
+            </div>
+        <div>
+            <nz-table *ngIf="!loadingState && ProductsList.length > 0" [nzScroll]="{ x: '1300px', y:'350px'}" [nzBordered]="false" [nzShowPagination]="false"
+                [nzData]="ProductsList">
+                <thead>
+                    <tr class="text-[12px] md:text-[13px] lg:text-[14px] font-normal text-[#6E6893]">
+                        <th nzWidth="190px">Name</th>
+                        <th nzWidth="170px">Description</th>
+                        <th nzWidth="140px">Channel</th>
+                        <th nzWidth="130px">Service</th>
+                        <th nzWidth="120px">Code</th>
+                        <th nzWidth="90px">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of paginatedData"
+                        class="text-[10px] md:text-[14px] lg:text-[15px] text-[#000000DE]">
+                        <td>{{item.name}}</td>
+                        <td>{{item.description}} </td>
+                        <td>{{item.channel_id}}</td>
+                        <td>{{item.service_id}}</td>
+                        <td>{{item?.code}}</td>
+                        <td>
+                            <div class="flex gap-x-2">
+                                <button (click)="editModal(item)"
+                                    class="flex items-center justify-center bg-[#D6F6FF] h-[25px] w-[25px] rounded-md">
+                                    <img src="Rename.svg" alt="" class="h-[14px]">
+                                </button>
+                                <button (click)="deleteModal(item)"
+                                    class="flex items-center justify-center bg-[#FFDFDF] h-[25px] w-[25px] rounded-md">
+                                    <img src="Delete.svg" alt="" class="h-[14px]">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+        <div class="w-full bg-white p-2 flex gap-2 justify-end items-center">
+            <span class="hidden md:flex lg:flex">Items per page:</span>
+            <select name="" id="" class="border border-gray-300 hidden md:flex lg:flex px-4 py-2 rounded-md">
+               <option value="10">10</option>
+              <option value="15">15</option>
+          </select>
+            <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="filteredProduct.length" [nzPageSize]="pageSize"
+            (nzPageIndexChange)="onPageIndexChange($event)"
+             nzSimple />
+        </div>
+    </div>
+</section>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Add Product" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <form nz-form #createProduct="ngForm" (ngSubmit)="submit(createProduct)" class="quicksand-uniquifier">
+            <nz-form-item>
+                <label for="label">Name <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" required placeholder="" name="name" #name="ngModel" [(ngModel)]="createProductForm.name" 
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+             <nz-form-item>
+                <label for="type" class="text-[13px] text-[#111827]">Select Service <span
+                        class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <select [(ngModel)]="createProductForm.service_id" required name="service_id" #service_id="ngModel" style="
+                    padding:10px 4px; width: 100%;"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600">
+                    <option *ngFor="let item of Services" [value]="item.name">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </nz-form-item>
+
+            <!-- <nz-form-item>
+                <label for="type">Services <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <select type="text" placeholder="" name="services" #services="ngModel" [(ngModel)]="createProductForm.service" 
+                    class="border border-1 border-[#D7D7D7] bg-[#F9FAFB] rounded-[5px] h-[45px] w-[475px] p-2">
+                    <option value=""></option>
+                    <option value="TEXT">TEXT</option>
+                    <option value="DROPDOWN">DROPDOWN</option>
+                </select>
+            </nz-form-item>
+ -->
+
+            <nz-form-item>
+                <label for="label">Description <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" required name="description" #description="ngModel" [(ngModel)]="createProductForm.description" 
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">Code <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" required placeholder="" name="code" #code="ngModel" [(ngModel)]="createProductForm.code"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <div class="flex justify-end">
+                <button type="submit" [disabled]="createProduct.invalid || isLoading"
+                  [ngClass]="{
+                        'bg-gray-300 cursor-not-allowed': createProduct.invalid || isLoading,
+                        'bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]': !(createProduct.invalid || isLoading)
+                    }"
+                      class="px-[40px] py-[8px] rounded-[8px] text-white flex justify-center items-center">
+                     <span *ngIf="isLoading"class="text-gray-700 text-sm">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Submitting...
+                </span>
+                 <span *ngIf="!isLoading" class="text-white text-[13px] font-[600]">Submit</span>
+                </button>
+            </div>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isEdit" nzTitle="Update Product" (nzOnCancel)="handleClose()" (nzOnOk)="handleOke()"
+    [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <form nz-form #updateProduct="ngForm" class="quicksand-uniquifier">
+            <nz-form-item>
+                <label for="label">Name <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="name" #name="ngModel" [(ngModel)]="productForm.name" 
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="type" class="text-[13px] text-[#111827]">Select Service <span
+                        class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <select [(ngModel)]="productForm.service_id" required name="service_id" #service_id="ngModel" style="
+                    padding:10px 4px; width: 100%;"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600">
+                    <option *ngFor="let item of Services" [value]="item.name">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <label for="label">Description <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="description" #description="ngModel" [(ngModel)]="productForm.description" 
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <nz-form-item>
+                <label for="label">Code <span class="text-[#FF0000] text-[9px]">(Required)</span></label>
+                <input type="text" placeholder="" name="code" #code="ngModel" [(ngModel)]="productForm.code"
+                    class="border border-gray-300 rounded-lg bg-[#F9FAFB] focus:outline focus:outline-sky-600 focus:border-sky-600 w-full p-3">
+            </nz-form-item>
+
+            <div class="flex justify-end">
+                 <button type="button" (click)="editProduct()" class="px-[60px] py-[8px] rounded-[8px]
+                  text-white flex justify-center items-center bg-gradient-to-r from-[#031641] via-[#163993] to-[#031641] hover:bg-[#233A5C]">
+                    <span *ngIf="Loading"class="text-gray-700 text-sm">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Submitting...
+                </span>
+                 <span *ngIf="!Loading" class="text-white text-[13px] font-[600]">Submit</span>
+                </button>
+
+                <!-- <div class="flex items-center justify-center h-[38px] w-[182px] gap-2">
+              <nz-spin nzSimple></nz-spin>
+              <span class="text-gray-700 text-sm">Creating...</span>
+            </div> -->
+            </div>
+        </form>
+    </ng-container>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isDelete" nzTitle="Delete Product" (nzOnCancel)="handleDelete()" (nzOnOk)="handleOki()" [nzWidth]="'25vw'"  [nzStyle]="{top: '170px' }"
+    [nzFooter]="null">
+    <ng-container *nzModalContent>
+        <div class="quicksand-uniquifier">
+            <span class="text-[16px] text-[#1D1F2C]">Confirm Deletion</span>
+        </div>
+       <div class="flex items-center quicksand-uniquifier mt-[10px]">
+           <span class="text-[12px] text-[#434343]"> Do you really want to delete this product? This action
+             <br> is irreversible
+            </span>
+        </div>
+            <div class="flex gap-[20px] justify-end">
+                <button type="button" (click)="closeDelete()" class="px-[24px] py-[4px] rounded-[8px]
+                  text-white flex justify-center items-center bg-white border border-gray-300">
+                 <span class="text-[#626262] text-[12px] font-[600]">Discard</span>
+                </button>
+                <button type="button" (click)="confirmDelete()" class="px-[24px] py-[4px] rounded-[8px]
+                  text-white flex justify-center items-center bg-[#A82800] hover:bg-red-500">
+                    <span *ngIf="Load"class="flex text-[#FFFFFF] text-xs">
+                    <nz-spin nzSimple [nzSize]="'small'"></nz-spin>
+                    Deleting in progress...
+                 </span>
+                 <span *ngIf="!Load" class="text-white text-[13px] font-[600]">Yes, Delete</span>
+                </button>
+            </div>
+    </ng-container>
+</nz-modal>
