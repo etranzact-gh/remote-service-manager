@@ -27,7 +27,7 @@ export class LayoutComponent implements OnInit {
   menu1: any
   userFullName: string ='';
   visible = false;
-  placement: NzDrawerPlacement = 'top';
+  placement: NzDrawerPlacement = 'right';
 
 
   open(): void {
@@ -55,4 +55,38 @@ export class LayoutComponent implements OnInit {
     })
   }
 
+  toHome(){
+    this.router.navigate(['/app-layout/layout/home']);
+    this.close();
+  }
+
+  toServices(){
+    this.router.navigate(['/app-layout/layout/services']);
+    this.close();
+  }
+
+  toProducts(){
+    this.router.navigate(['/app-layout/layout/products']);
+    this.close();
+  }
+
+  toChannels(){
+    this.router.navigate(['/app-layout/layout/channels']);
+    this.close();
+  }
+
+  toInstitutions(){
+    this.router.navigate(['/app-layout/layout/institutions']);
+    this.close();
+  }
+
+  toCategories(){
+    this.router.navigate(['/app-layout/layout/categories']);
+    this.close();
+  }
+
+  toAccounts(){ 
+    this.router.navigate(['/app-layout/layout/accounts']);
+    this.close();
+  }
 }
