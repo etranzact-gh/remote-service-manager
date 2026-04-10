@@ -11,7 +11,18 @@ export class CategoriesService {
 
   constructor(private http:HttpClient) { }
   getCategories(item:CategoriesModel):Observable<any>{
-    return this.http.get<CategoriesModel>(environment.loginApi + '/Proxy/RemoteServiceManager/api/category/getCategories?status=all')
+    let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/category/getCategories`;
+    let isParam = true;
+
+    if(item.status){
+      url += `?status=${item.status}`;
+      isParam = false;
+    }
+
+    if(item.channel_id){
+      url += `${isParam ? '?' : '&'}channel_id=${item.channel_id}`;
+    }
+    return this.http.get<CategoriesModel>(url)
   }
 
   getInstitutions(item:InstitutionsModel):Observable<any>{
@@ -19,7 +30,18 @@ export class CategoriesService {
   }
 
   getServices(item:ServicesModel):Observable <any>{
-    return this.http.get<ServicesModel>(environment.loginApi + '/Proxy/RemoteServiceManager/api/service/getServices?channel_id=all')
+    let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/service/getServices`;
+    let isParam = true;
+
+    if(item.status){
+      url += `?status=${item.status}`;
+      isParam = false;
+    }
+
+    if(item.channel_id){
+      url += `${isParam ? '?' : '&'}channel_id=${item.channel_id}`;
+    }
+    return this.http.get<ServicesModel>(url)
   }
 
   getProducts(item:ProductsModel):Observable<any>{
@@ -27,7 +49,19 @@ export class CategoriesService {
   }
 
   getChannels(item:ChannelsModel):Observable<any>{
-    return this.http.get<ChannelsModel>(environment.loginApi + '/Proxy/RemoteServiceManager/api/channel/getChannels?category_id=all')
+  let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/channel/getChannels`;
+    let isParam = true; 
+
+    if(item.status){
+      url += `?status=${item.status}`;
+      isParam = false;
+    }
+
+    if(item.category_id){
+      url += `${isParam ? '?' : '&'}category_id=${item.category_id}`;
+    }
+  
+    return this.http.get<ChannelsModel>(url)
   }
 
   getAccounts(item:AccountsModel):Observable <any>{
