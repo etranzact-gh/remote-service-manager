@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
@@ -15,5 +15,5 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), 
     provideNzI18n(en_US), importProvidersFrom(FormsModule), provideAnimationsAsync(), 
-    provideHttpClient(), provideAnimations()]
+    provideHttpClient(), provideAnimations(), provideRouter(routes, withHashLocation())]
 };

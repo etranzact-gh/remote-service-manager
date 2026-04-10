@@ -119,7 +119,7 @@ export class AccountsComponent implements OnInit{
       confirm_pin:'', new_pin:'',
       phone_number:item.phone_number
     }
-    console.log('phone number', item.phone_number)
+    // console.log('phone number', item.phone_number)
   }
 
   manageStatus(item:any){
@@ -148,7 +148,7 @@ export class AccountsComponent implements OnInit{
     }
     this.dataService.createAccount(payload).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isLoading = false;
         this.isVisible = false;
           if(response.error=='00'){
@@ -164,7 +164,7 @@ export class AccountsComponent implements OnInit{
         this.listAccounts();
       },
       error:(error)=>{
-        console.log('error creating accounting', error);
+        // console.log('error creating accounting', error);
         this.isVisible = false;
         this.listAccounts();
         this.createNotification('top','error','Account Not Created!',error.message)
@@ -197,7 +197,7 @@ export class AccountsComponent implements OnInit{
     this.Load = true;
     this.categoryService.deleteAccount(this.accountForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }
@@ -222,12 +222,12 @@ export class AccountsComponent implements OnInit{
         this.loadingState=false;
         this.AccountsList = response.data || [];
         this.filteredAccount = [...this.AccountsList]; 
-        console.log('services', response);
+        // console.log('services', response);
         this.updatePagination();
       },
       error:(error)=>{
         this.loadingState=false;
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete:()=>{}
     })
@@ -267,7 +267,7 @@ onPageSizeChange(size: number) {
     }
     this.dataService.newPin(payload).subscribe({
       next:(response)=>{
-        console.log('payload', payload);
+        // console.log('payload', payload);
          this.isSetting = false;
         this.isPin= false;
         if(response.error=='00'){
@@ -299,7 +299,7 @@ onPageSizeChange(size: number) {
     this.dataService.changePin(payload).subscribe({
       next:(response)=>{
         this.isChanging = false;
-        console.log('payload', payload)
+        // console.log('payload', payload)
         this.isPin= false;
         if(response.error=='00'){
           this.createNotification('top','success','Pin Changed Successfully!', response.message);
@@ -332,7 +332,7 @@ onPageSizeChange(size: number) {
     this.dataService.blockAccount(payload).subscribe({
       next:(response)=>{
         this.statusChange = false;
-        console.log('payload', payload)
+        // console.log('payload', payload)
         this.isStatus= false;
         if(response.error=='00'){
           this.createNotification('top','success','Success!', response.message);

@@ -97,13 +97,13 @@ export class ChannelsComponent implements OnInit {
     this.categoryService.getChannels(this.channelData).subscribe({
       next:(response)=>{
         this.loadingState=false
-        console.log('response',response)
+        // console.log('response',response)
         this.ChannelList= response.data || [];
         this.filteredChannel = [...this.ChannelList]; 
         this.updatePagination();
       },
       error:(error)=>{
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete:()=>{}
     })
@@ -141,7 +141,7 @@ onPageSizeChange(size: number) {
     this.isLoading = true;
     this.dataService.createChannel(this.createChannelForm).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isLoading = false;
         this.isVisible = false;
          if(response.error=='00'){
@@ -157,7 +157,7 @@ onPageSizeChange(size: number) {
         this.listChannels();
       },
       error:(error)=>{
-        console.log('error creating channel', error);
+        // console.log('error creating channel', error);
         this.isVisible = false;
         this.createNotification('top','error','Channel Not Created!',error.message)
         createChannelForm.resetForm();
@@ -169,11 +169,11 @@ onPageSizeChange(size: number) {
     listCategories() {
     this.categoryService.getCategories(this.categories).subscribe({
       next: (response: any) => {
-        console.log('all data', response);
+        // console.log('all data', response);
         this.Categories = response.data;
       },
       error: (error) => {
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete: () => { }
     })
@@ -195,7 +195,7 @@ onPageSizeChange(size: number) {
       url: this.channelForm.url, id:this.channelForm.id,
       category_id:this.channelForm.category_id
     }
-    console.log ('id', payload.id)
+    // console.log ('id', payload.id)
     this.categoryService.updateChannel(payload).subscribe({
       next:(response)=>{
          if(response.error=='00'){
@@ -225,7 +225,7 @@ onPageSizeChange(size: number) {
     this.Load = true;
     this.categoryService.deleteChannel(this.channelForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }

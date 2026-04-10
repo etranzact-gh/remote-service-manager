@@ -89,11 +89,11 @@ export class ProductsComponent implements OnInit {
         this.ProductsList = response.data || [];  
         this.filteredProduct = [...this.ProductsList]; 
         this.updatePagination();
-         console.log('all data', response)
+        //  console.log('all data', response)
       },
       error:(error)=>{
         this.loadingState = false;
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete:()=>{}
     })
@@ -102,11 +102,11 @@ export class ProductsComponent implements OnInit {
     listServices() {
     this.categoryService.getServices(this.servicesData).subscribe({
       next: (response) => {
-        console.log('services', response);
+        // console.log('services', response);
         this.Services = response.data;
       },
       error: (error) => {
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete: () => { }
     })
@@ -153,7 +153,7 @@ onPageSizeChange(size: number) {
     this.Load = true;
     this.categoryService.deleteProduct(this.productForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }
@@ -189,7 +189,7 @@ onPageSizeChange(size: number) {
     }
     this.dataService.createProduct(this.createProductForm).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isVisible = false;
         if(response.error=='00'){
           this.createNotification('top','success','Success!', response.message);
@@ -205,7 +205,7 @@ onPageSizeChange(size: number) {
         this.listProducts();
       },
       error:(error)=>{
-        console.log('error creating Product', error);
+        // console.log('error creating Product', error);
         this.isVisible = false;
         this.createNotification('top','error','Product Not Created!',error.message)
         createProductForm.resetForm();
@@ -232,7 +232,7 @@ onPageSizeChange(size: number) {
         code: this.productForm.code, id:this.productForm.id,
         service_id:this.productForm.service_id, channel_id:this.productForm.channel_id
       }
-      console.log ('id', payload)
+      // console.log ('id', payload)
       this.categoryService.updateProduct(payload).subscribe({
         next:(response)=>{
            if(response.error=='00'){

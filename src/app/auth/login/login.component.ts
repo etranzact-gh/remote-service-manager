@@ -58,11 +58,11 @@ export class LoginComponent implements OnInit {
   renderPortalConfig() {
     this.authService.portalAction().subscribe({
       next: (response: any) => {
-        console.log('Render page', response.pub_key)
+        // console.log('Render page', response.pub_key)
         this.pub_key = response.pub_key;
       },
       error: () => {
-        console.log('error')
+        // console.log('error')
       },
       complete: () => { }
 
@@ -96,12 +96,12 @@ export class LoginComponent implements OnInit {
         }
         localStorage.setItem('userFullName', response.userData.firstname + ' ' + response.userData.lastname);
         localStorage.setItem('userFirstName', response.userData.firstname);
-        console.log('successful login', response.message)
+        // console.log('successful login', response.message)
       },
       error: (error) => {
         this.loadingState=false;
         this.createNotification('top', "error", "Login Unsuccessful", error.message);
-        console.log('error signing in', error)
+        // console.log('error signing in', error)
       },
       complete: () => { }
     })

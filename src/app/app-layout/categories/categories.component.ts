@@ -62,7 +62,7 @@ export class CategoriesComponent implements OnInit {
   submit(createCategoryForm:NgForm){
     this.dataService.createCategory(this.createCategoryForm).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isVisible = false;
          if(response.error=='00'){
           this.createNotification('top','success','Success!', response.message);
@@ -77,7 +77,7 @@ export class CategoriesComponent implements OnInit {
         this.listCategories();
       },
       error:(error)=>{
-        console.log('response', error);
+        // console.log('response', error);
         this.isVisible = false;
         this.createNotification('top','error','Category Created Successfully!',error.message);
         createCategoryForm.resetForm();
@@ -100,7 +100,7 @@ export class CategoriesComponent implements OnInit {
       name: this.categoryForm.name, description: this.categoryForm.description,
       id:this.categoryForm.id
     }
-    console.log ('id', payload.id)
+    // console.log ('id', payload.id)
     this.categoryService.updateCategories(payload).subscribe({
       next:(response)=>{
          if(response.error=='00'){
@@ -146,7 +146,7 @@ export class CategoriesComponent implements OnInit {
     this.Load = true;
     this.categoryService.deleteCategory(this.categoryForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }
@@ -190,10 +190,10 @@ export class CategoriesComponent implements OnInit {
         this.CategoryList= response.data || [];
         this.filteredCategory = [...this.CategoryList]; 
         this.updatePagination();
-        console.log('all data', response);
+        // console.log('all data', response);
       },
       error:(error)=>{
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete:()=>{}
     })

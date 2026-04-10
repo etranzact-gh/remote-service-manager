@@ -89,7 +89,7 @@ export class ServicesComponent implements OnInit {
     this.dataService.createService(this.createServiceForm).subscribe({
       next:(response)=>{
         this.isLoading=false;
-        console.log('response', response);
+        // console.log('response', response);
            if(response.error=='00'){
           this.createNotification('top','success','Success!', response.message);
           this.isVisible = false;
@@ -110,7 +110,7 @@ export class ServicesComponent implements OnInit {
       },
       error:(error)=>{
          this.isLoading=false;
-        console.log('error creating accounting', error);
+        // console.log('error creating accounting', error);
         this.isVisible = false;
         this.createNotification('top','error', 'Service Not Created!',error.message)
         createServiceForm.resetForm();
@@ -130,11 +130,11 @@ export class ServicesComponent implements OnInit {
   listChannels() {
     this.categoryService.getChannels(this.channelData).subscribe({
       next: (response) => {
-        console.log('response', response);
+        // console.log('response', response);
         this.Channels = response.data;
       },
       error: (error) => {
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete: () => { }
     })
@@ -149,13 +149,13 @@ export class ServicesComponent implements OnInit {
         this.ServicesList = response.data || [];
         this.filteredServices = [...this.ServicesList];
         this.updatePagination(); 
-        console.log('services', response);
+        // console.log('services', response);
       //   if (this.serviceForm?.channel_id) {
       //    this.serviceForm.channel_id = this.serviceForm.channel_id;
       //  }
       },
       error:(error)=>{
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete:()=>{}
     })
@@ -172,7 +172,7 @@ export class ServicesComponent implements OnInit {
     this.Load = true;
     this.categoryService.deleteService(this.serviceForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }
@@ -197,7 +197,7 @@ export class ServicesComponent implements OnInit {
   editModal(item:any){
     this.isEdit= true;
      const firstChannel =  item.description?.split(',')[0]?.trim();
-    console.log('details', item);
+    // console.log('details', item);
     this.serviceForm = {
       name: item.name,
       description: item.description,
@@ -216,7 +216,7 @@ export class ServicesComponent implements OnInit {
       token: this.serviceForm.token, id:this.serviceForm.id,
       channel_id: this.serviceForm.channel_id
     }
-    console.log ('id', payload.id)
+    // console.log ('id', payload.id)
     this.categoryService.updateService(payload).subscribe({
       next:(response)=>{
          if(response.error=='00'){
@@ -246,10 +246,10 @@ export class ServicesComponent implements OnInit {
     this.categoryService.getCategories(this.categories).subscribe({
       next:(response:any)=>{
         this.Categories= response.data
-        console.log('all data', response)
+        // console.log('all data', response)
       },
       error:(error)=>{
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete:()=>{}
     })

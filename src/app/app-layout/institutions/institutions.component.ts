@@ -79,7 +79,7 @@ export class InstitutionsComponent implements OnInit{
     this.isLoading = true;
     this.dataService.createInstitution(this.createInstForm).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isLoading = false;
         this.isVisible = false;
            if(response.error=='00'){
@@ -95,7 +95,7 @@ export class InstitutionsComponent implements OnInit{
         this.listInstitutions();
       },
       error:(error)=>{
-        console.log('response', error);
+        // console.log('response', error);
         this.isVisible = false;
         this.createNotification('top','error','Institution Created Successfully!',error.message)
         createInstForm.resetForm();
@@ -128,7 +128,7 @@ export class InstitutionsComponent implements OnInit{
     this.Load = true;
     this.categoryService.deleteInstitution(this.InstForm.id).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
          if(response =='00'){
           this.createNotification('top','success','Success!', response.message);
         }
@@ -151,13 +151,13 @@ export class InstitutionsComponent implements OnInit{
     this.categoryService.getInstitutions(this.institutionsData).subscribe({
       next:(response:any) =>{
          this.loadingState = false;
-         console.log('all data', response)
+        //  console.log('all data', response)
          this.InstitutionList = response.data || [];
          this.filteredInstitution = [...this.InstitutionList]; 
           this.updatePagination();
       },
       error:(error)=>{
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete:()=>{}
     })
@@ -205,7 +205,7 @@ export class InstitutionsComponent implements OnInit{
       id:this.InstForm.id,
       institution_code:this.InstForm.institution_code
     }
-    console.log ('id', payload.id)
+    // console.log ('id', payload.id)
     this.categoryService.updateInstitution(payload).subscribe({
       next:(response)=>{
          if(response.error=='00'){

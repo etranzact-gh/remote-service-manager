@@ -100,14 +100,14 @@ export class HomeComponent implements OnInit {
     this.dataService.getData(status).subscribe({
       next: (response: any) => {
         this.loadingState = false;
-        console.log('all data', response);
+        // console.log('all data', response);
         this.DataList = response.data.products || [];
         // this.institution = response.data.blacklist
         this.filteredData = [...this.DataList]; 
       },
       error: (error) => {
         this.loadingState = false;
-        console.log('error listing data', error)
+        // console.log('error listing data', error)
       },
       complete: () => { }
     })
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
     }
     this.dataService.createData(payload).subscribe({
       next:(response)=>{
-        console.log('response', response);
+        // console.log('response', response);
         this.isLoading = false;
         this.isVisible = false;
         if(response.error=='00'){
@@ -146,7 +146,7 @@ export class HomeComponent implements OnInit {
       },
       error:(error)=>{
         this.isLoading = false
-        console.log('error creating account', error);
+        // console.log('error creating account', error);
         this.isVisible = false;
         this.createNotification('top','error',' Not Created!',error.message)
         manageServiceForm.resetForm();
@@ -165,11 +165,11 @@ export class HomeComponent implements OnInit {
   listServices() {
     this.categoryService.getServices(this.servicesData).subscribe({
       next: (response) => {
-        console.log('services', response);
+        // console.log('services', response);
         this.Services = response.data;
       },
       error: (error) => {
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete: () => { }
     })
@@ -178,11 +178,11 @@ export class HomeComponent implements OnInit {
   listCategories() {
     this.categoryService.getCategories(this.categories).subscribe({
       next: (response: any) => {
-        console.log('all data', response);
+        // console.log('all data', response);
         this.Categories = response.data;
       },
       error: (error) => {
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete: () => { }
     })
@@ -191,12 +191,12 @@ export class HomeComponent implements OnInit {
   listInstitutions() {
     this.categoryService.getInstitutions(this.institutionsData).subscribe({
       next: (response: any) => {
-        console.log('all institutions', response);
+        // console.log('all institutions', response);
         this.Institutions = [...response.data];
         this.filteredInstitutions = this.Institutions;
       },
       error: (error) => {
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete: () => { }
     })
@@ -205,11 +205,11 @@ export class HomeComponent implements OnInit {
   listProducts() {
     this.categoryService.getProducts(this.productsData).subscribe({
       next: (response: any) => {
-        console.log('all data', response);
+        // console.log('all data', response);
         this.Products = response.data;
       },
       error: (error) => {
-        console.log('all data', error)
+        // console.log('all data', error)
       },
       complete: () => { }
     })
@@ -218,11 +218,11 @@ export class HomeComponent implements OnInit {
   listChannels() {
     this.categoryService.getChannels(this.channelData).subscribe({
       next: (response) => {
-        console.log('response', response);
+        // console.log('response', response);
         this.Channels = response.data;
       },
       error: (error) => {
-        console.log('error', error)
+        // console.log('error', error)
       },
       complete: () => { }
     })

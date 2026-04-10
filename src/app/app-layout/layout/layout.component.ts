@@ -45,11 +45,11 @@ export class LayoutComponent implements OnInit {
   backTo(){
     this.loginService.signOut(this.logOut).subscribe({
       next:(response)=>{
-        console.log('logout complete', response);
+        // console.log('logout complete', response);
          this.router.navigate(['/auth/login']);
       },
       error:(error)=>{
-        console.log('couldnot log out', error)
+        // console.log('couldnot log out', error)
       },
       complete:()=>{}
     })
