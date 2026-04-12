@@ -1,0 +1,8 @@
+{
+  "/XPortal": {
+    "target": "https://webpay.etranzactgh.com",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
