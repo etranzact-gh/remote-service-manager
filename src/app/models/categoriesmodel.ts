@@ -1,5 +1,5 @@
 export class CategoriesModel{
-    channel_id!:string
+    channel_id!: string;
     status!:string
 }
 
@@ -40,8 +40,8 @@ export interface Daum {
 }
 
 export class ServicesModel{
-    channel_id!:string;
-    status!:string;
+  channel_id!: string;
+   status!:string;
 }
 
 export class ServicesItemModel{

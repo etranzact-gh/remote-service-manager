@@ -143,9 +143,10 @@ export class ServicesComponent implements OnInit {
 
   listServices(){
     this.loadingState = true;
-    this.categoryService.getServices(this.servicesData).subscribe({
+    // console.log('loader', this.loadingState)
+    this.categoryService.getServices(this?.servicesData).subscribe({
       next:(response)=>{
-        this.loadingState =false;
+        this.loadingState = false;
         this.ServicesList = response.data || [];
         this.filteredServices = [...this.ServicesList];
         this.updatePagination(); 
@@ -242,7 +243,7 @@ export class ServicesComponent implements OnInit {
   };
  
     listCategories(){
-    this.loadingState = true;
+    // this.loadingState = true;
     this.categoryService.getCategories(this.categories).subscribe({
       next:(response:any)=>{
         this.Categories= response.data

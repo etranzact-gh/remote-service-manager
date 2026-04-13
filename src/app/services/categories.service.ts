@@ -14,12 +14,12 @@ export class CategoriesService {
     let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/category/getCategories`;
     let isParam = true;
 
-    if(item.status){
-      url += `?status=${item.status}`;
+    if(item?.status){
+      url += `${isParam ? '?' : '&'}status=${item.status}`;
       isParam = false;
     }
 
-    if(item.channel_id){
+    if(item?.channel_id){
       url += `${isParam ? '?' : '&'}channel_id=${item.channel_id}`;
     }
     return this.http.get<CategoriesModel>(url)
@@ -29,17 +29,17 @@ export class CategoriesService {
     return this.http.get<InstitutionsModel>(environment.loginApi + '/Proxy/RemoteServiceManager/api/institution/getInstitutions')
   }
 
-  getServices(item:ServicesModel):Observable <any>{
+  getServices(item?:ServicesModel):Observable <any>{
     let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/service/getServices`;
-    let isParam = true;
+    let isSerivce = true;
 
-    if(item.status){
-      url += `?status=${item.status}`;
-      isParam = false;
+    if(item?.status){
+      url += `${isSerivce ? '?' : '&'}status=${item.status}`;
+      isSerivce = false;
     }
-
-    if(item.channel_id){
-      url += `${isParam ? '?' : '&'}channel_id=${item.channel_id}`;
+    if(item?.channel_id){
+      url += `${isSerivce ? '?' : '&'}channel_id=${item.channel_id}`;
+      isSerivce = false;
     }
     return this.http.get<ServicesModel>(url)
   }
@@ -48,34 +48,34 @@ export class CategoriesService {
     let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/product/getProducts`;
     let isProduct = true;
 
-    if(item.status){
+    if(item?.status){
       url += `${isProduct ? '?' : '&'}status=${item.status}`;
       isProduct = false;
     }
-    if(item.channel_id){
+    if(item?.channel_id){
       url += `${isProduct ? '?' : '&'}channel_id=${item.channel_id}`;
       isProduct = false;
     }
-    if(item.service_id){
+    if(item?.service_id){
       url += `${isProduct ? '?' : '&'}service_id=${item.service_id}`;
       isProduct = false;
     }
     return this.http.get<ProductsModel>(url)
   }
 
-  getChannels(item:ChannelsModel):Observable<any>{
+  getChannels(item?:ChannelsModel):Observable<any>{
   let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/channel/getChannels`;
-    let isParam = true; 
+    let isChannel = true; 
 
-    if(item.status){
-      url += `?status=${item.status}`;
-      isParam = false;
+    if(item?.status){
+      url += `${isChannel ? '?' : '&'}status=${item.status}`;
+      isChannel = false;
     }
 
-    if(item.category_id){
-      url += `${isParam ? '?' : '&'}category_id=${item.category_id}`;
+    if(item?.category_id){
+      url += `${isChannel ? '?' : '&'}category_id=${item.category_id}`;
+      isChannel = false;
     }
-  
     return this.http.get<ChannelsModel>(url)
   }
 

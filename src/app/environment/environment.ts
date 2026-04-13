@@ -5,6 +5,6 @@
 
 
 export const environment = {
-    loginApi: 'https://webpay.etranzactgh.com/XPortal/api'
+    loginApi: '/XPortal/api'
 }
 
