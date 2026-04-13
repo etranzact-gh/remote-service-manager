@@ -45,7 +45,22 @@ export class CategoriesService {
   }
 
   getProducts(item:ProductsModel):Observable<any>{
-    return this.http.get<ProductsModel>(environment.loginApi + '/Proxy/RemoteServiceManager/api/product/getProducts?channel_id=all&service_id=all&status=all')
+    let url = `${environment.loginApi}/Proxy/RemoteServiceManager/api/product/getProducts`;
+    let isProduct = true;
+
+    if(item.status){
+      url += `${isProduct ? '?' : '&'}status=${item.status}`;
+      isProduct = false;
+    }
+    if(item.channel_id){
+      url += `${isProduct ? '?' : '&'}channel_id=${item.channel_id}`;
+      isProduct = false;
+    }
+    if(item.service_id){
+      url += `${isProduct ? '?' : '&'}service_id=${item.service_id}`;
+      isProduct = false;
+    }
+    return this.http.get<ProductsModel>(url)
   }
 
   getChannels(item:ChannelsModel):Observable<any>{

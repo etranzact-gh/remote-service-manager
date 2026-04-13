@@ -15,6 +15,5 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), 
     provideNzI18n(en_US), importProvidersFrom(FormsModule), provideAnimationsAsync(), 
-    provideHttpClient(), provideAnimations(), 
-    { provide: LocationStrategy, useClass: HashLocationStrategy }]
+    provideHttpClient(), provideAnimations(), { provide: LocationStrategy, useClass: HashLocationStrategy }]
 };
